@@ -1,0 +1,17 @@
+         __      __
+        ( _\    /_ )
+         \ _\  /_ /
+          \ _\/_ /_ _
+          |_____/_/ /|
+          (  (_)__)J-)
+          (  /`.,   /
+           \/  ;   /
+            | === |
+      ____    ____     ____
+     |  _ \  | __ )   / ___|
+     | | | | |  _ \  | |
+     | |_| | | |_) | | |___
+     |____/  |____/   \____|
+${AnsiColor.BRIGHT_BLUE}Spring Boot Version : ${spring-boot.version} ${spring-boot.formatted-version}
+${AnsiColor.BRIGHT_CYAN}SpringBoot-Vue.js  : 0.0.1.RELEASE
+${AnsiColor.BRIGHT_BLACK}Author            : Ray,liu

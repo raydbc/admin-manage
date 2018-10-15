@@ -1,0 +1,102 @@
+# ===================================================================
+# Spring Boot configuration.
+#
+# This configuration will be overridden by the Spring profile you use,
+# for example application-dev.yml if you use the "dev" profile.
+# ===================================================================
+server:
+  port: 8035
+spring:
+  application:
+      name: "admin-manage"
+  profiles:
+    mvc:
+      static-path-pattern: /**
+      favicon:
+        enabled: false
+      locale: zh_CN
+      # The commented value for `active` can be replaced with valid spring profiles to load.
+      # Otherwise, it will be filled in by maven when building the WAR file
+      # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
+    active: prod #spring.profiles.active#
+    messages:
+      # Do not add the prefix classpath:, please refer to MessageSourceAutoConfiguration.getResources(ClassLoader classLoader, String name)
+      # TODO: basename only support the first massage resource for now.
+      basename: i18n/messages_zh_CN,i18n/messages_en_US
+      fallback-to-system-locale: false
+    http:
+      multipart: # Management http multipart configuration, used by MultipartProperties
+        enabled: true
+        max-file-size: 30MB
+        max-request-size: 50MB
+info: # These configuration can be exported to Environment, accessing URL /info can get these properties
+  artifact:
+    id: #project.artifactId#
+    name: #project.name#
+    version: #project.version#
+  project:
+    package: org.dbc.admin
+# ===================================================================
+# MyBatis properties, used by MybatisProperties
+# ===================================================================
+mybatis:
+  mapper-locations: classpath:config/mapper/*.xml
+  type-aliases-package: org.dbc.admin.domain
+  configuration:
+      cache-enabled: true
+      lazy-loading-enabled: false
+      local-cache-scope: SESSION
+# ===================================================================
+# Application specific properties
+# ===================================================================
+application:
+  http:
+    cache: # Used by the CachingHttpHeadersFilter
+      time-to-live-in-days: 31
+    multipart: # Management http multipart configuration, used by MultipartProperties
+      enabled: true
+      max-file-size: 30MB
+      max-request-size: 50MB
+  async:
+      core-pool-size: 30
+      max-pool-size: 80
+      queue-capacity: 1000
+  cors: #By default CORS are not enabled. Uncomment to enable.
+      allowed-origins: "*"
+      allowed-methods: GET, PUT, POST, DELETE, OPTIONS
+      allowed-headers: "*"
+      exposed-headers: X-Custom-Header
+      allow-credentials: true
+      max-age: 1800
+
+  logging:
+    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
+        enabled: false
+        host: localhost
+        port: 5000
+        queueSize: 512
+    level:
+        root: INFO
+        org.springframework.web: INFO
+        org.springframework.security: INFO
+
+# ===================================================================
+# pagehelper
+# ===================================================================
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+endpoints:
+  shutdown:
+      enabled: false
+# ===================================================================
+# logger properties, used by logback
+# ===================================================================
+#logging:
+#  config: classpath:config/spring-logback.xml
+security:
+  basic:
+    enabled: false

@@ -1,0 +1,99 @@
+# ===================================================================
+# Spring Boot configuration for the "prod" profile.
+#
+# This configuration overrides the application.yml file.
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/deepbrainchain?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: deepbrain
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/deepbrainchainlocal
+      database: deepbrainchain
+  redis:
+    host: 127.0.0.1
+    password:
+    port: 6379
+    database: 11
+    timeout: 15000
+    pool:
+      max-active: 600
+      max-idle: 300
+      max-wait: -1
+  devtools:
+    restart:
+      enabled: false # disable on prod environment
+    livereload:
+      enabled: false # we use gulp + BrowserSync for livereload
+# ===================================================================
+# MyBatis properties
+# ===================================================================
+mybatis:
+  mapperLocations: classpath:config/mapper/*.xml
+  typeAliasesPackage: org.dbc.admin.domain
+  typeAliasesSuperType: org.dbc.admin.domain.BaseEntity
+  configuration:
+    #使全局的映射器启用或禁用缓存
+    cacheEnabled: true
+    #全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载
+    lazyLoadingEnabled: false
+    #当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载
+    aggressiveLazyLoading: true
+    #是否允许单条sql 返回多个数据集  (取决于驱动的兼容性)
+    multipleResultSetsEnabled: true
+    localCacheScope: SESSION
+    autoMappingBehavior: PARTIAL
+    defaultExecutorType: SIMPLE
+    mapUnderscoreToCamelCase: true
+
+# ===================================================================
+# Application specific properties
+# ===================================================================
+application:
+  logging:
+    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
+      enabled: false
+      host: localhost
+      port: 5000
+      queueSize: 512
+    level:
+      root: INFO
+      org.springframework.web: INFO
+      org.springframework.security: INFO
+  jenkins:
+    admin-url: http://192.168.20.18:2010
+  file-ftp:
+    url: 172.31.29.217
+    userName: hp
+    password: Hp#!Pl379AZ
+    uploadDir: prod
+    httpUrl: https://hp.deepbrainchain.org
+    kycImagUrlPrefix: https://info.deepbrainchain.org/
+  url:
+    bountyUrl: https://www.deepbrainchain.org/bounty.html
+    signUpUrl: https://www.deepbrainchain.org/dptlanding.html?nologin=1
+    minerSignUpUrl: https://www.deepbrainchain.org/index.html?nologin=1
+  eth:
+    rpcUrl: http://172.31.25.139:8558
+  neo:
+    rpcUrl: http://172.31.23.114:10332

@@ -1,0 +1,4 @@
+rootProject.name = 'admin-manage'
+include 'admin'
+include 'web'
+
