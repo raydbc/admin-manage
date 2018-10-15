@@ -11,21 +11,13 @@
 # ===================================================================
 spring:
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/deepbrainchain?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/deepbrainchain?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: root
     password: deepbrain
-    type: com.zaxxer.hikari.HikariDataSource
     hikari:
-      minimum-idle: 5
-      maximum-pool-size: 15
-      auto-commit: true
-      idle-timeout: 30000
-      pool-name: DatebookHikariCP
-      max-lifetime: 1800000
-      connection-timeout: 30000
-      connection-test-query: SELECT 1
-
+      maxLifetime: 1765000 #一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒以上
+      maximumPoolSize: 15
   data:
     mongodb:
       uri: mongodb://localhost:27017/deepbrainchainlocal
@@ -45,41 +37,11 @@ spring:
       enabled: false # disable on prod environment
     livereload:
       enabled: false # we use gulp + BrowserSync for livereload
-# ===================================================================
-# MyBatis properties
-# ===================================================================
-mybatis:
-  mapperLocations: classpath:config/mapper/*.xml
-  typeAliasesPackage: org.dbc.admin.domain
-  typeAliasesSuperType: org.dbc.admin.domain.BaseEntity
-  configuration:
-    #使全局的映射器启用或禁用缓存
-    cacheEnabled: true
-    #全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载
-    lazyLoadingEnabled: false
-    #当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载
-    aggressiveLazyLoading: true
-    #是否允许单条sql 返回多个数据集  (取决于驱动的兼容性)
-    multipleResultSetsEnabled: true
-    localCacheScope: SESSION
-    autoMappingBehavior: PARTIAL
-    defaultExecutorType: SIMPLE
-    mapUnderscoreToCamelCase: true
 
 # ===================================================================
 # Application specific properties
 # ===================================================================
 application:
-  logging:
-    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
-      enabled: false
-      host: localhost
-      port: 5000
-      queueSize: 512
-    level:
-      root: INFO
-      org.springframework.web: INFO
-      org.springframework.security: INFO
   jenkins:
     admin-url: http://192.168.20.18:2010
   file-ftp:

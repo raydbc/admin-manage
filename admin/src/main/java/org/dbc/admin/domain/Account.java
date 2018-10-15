@@ -11,13 +11,14 @@ import lombok.ToString;
  * The account information of the user corresponds to the user_account table in mysql.
  */
 @Data
+@ToString
 @EqualsAndHashCode(callSuper=false)
 public class Account extends BaseEntity {
 
     /** 用户Id **/
     private String userId;
 
-    /** 钱包地址, currencyType: 0时，保存的时neo钱包地址，1时，保存的时eth钱包地址 **/
+    /** 钱包地址 **/
     private String walletAddress;
 
     /** 余额 **/

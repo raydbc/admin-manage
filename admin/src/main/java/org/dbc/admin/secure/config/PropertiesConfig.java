@@ -11,7 +11,6 @@ import org.springframework.web.cors.CorsConfiguration;
  * @Date: 2018/10/6 17:44
  */
 
-@Data
 @Component
 @ConfigurationProperties(prefix = "application")
 public class PropertiesConfig {

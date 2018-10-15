@@ -1,5 +1,7 @@
 package org.dbc.admin.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,8 @@ import java.io.Serializable;
  * @Date: 2018/10/9 15:17
  * <p> mysql basic operation.
  */
+
+@Mapper
 public interface BaseCrudDao<T, ID extends Serializable> extends Serializable {
 
     /**

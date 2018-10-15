@@ -40,12 +40,22 @@ info: # These configuration can be exported to Environment, accessing URL /info 
 # MyBatis properties, used by MybatisProperties
 # ===================================================================
 mybatis:
-  mapper-locations: classpath:config/mapper/*.xml
-  type-aliases-package: org.dbc.admin.domain
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: org.dbc.admin.domain
+  typeAliasesSuperType: org.dbc.admin.domain.BaseEntity
   configuration:
-      cache-enabled: true
-      lazy-loading-enabled: false
-      local-cache-scope: SESSION
+      #使全局的映射器启用或禁用缓存
+      cacheEnabled: true
+      #全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载
+      lazyLoadingEnabled: false
+      #当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载
+      aggressiveLazyLoading: true
+      #是否允许单条sql 返回多个数据集  (取决于驱动的兼容性)
+      multipleResultSetsEnabled: true
+      localCacheScope: SESSION
+      autoMappingBehavior: PARTIAL
+      defaultExecutorType: SIMPLE
+      mapUnderscoreToCamelCase: true
 # ===================================================================
 # Application specific properties
 # ===================================================================
@@ -79,7 +89,6 @@ application:
         root: INFO
         org.springframework.web: INFO
         org.springframework.security: INFO
-
 # ===================================================================
 # pagehelper
 # ===================================================================

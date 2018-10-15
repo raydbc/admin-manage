@@ -22,7 +22,7 @@ public class NoDataException extends RuntimeException {
     public String getId() {
         return id;
     }
-
+    @Override
     public String getMessage() {
         return message;
     }

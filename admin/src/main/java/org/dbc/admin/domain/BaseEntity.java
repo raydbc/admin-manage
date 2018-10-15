@@ -1,7 +1,6 @@
 package org.dbc.admin.domain;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,13 +11,18 @@ import org.springframework.data.annotation.LastModifiedDate;
  * @Date: 2018/10/11 15:08
  */
 @Data
-@EqualsAndHashCode(callSuper=false)
+@ToString
 public class BaseEntity {
 
     /**
      * Id(AI)
      **/
     protected Integer id;
+
+    /**
+     * 版本
+     **/
+    protected Integer version;
 
     /**
      * 创建时间
@@ -49,9 +53,5 @@ public class BaseEntity {
      **/
     protected Integer enabled = 1;
 
-    /**
-     * 版本
-     **/
-    protected Integer version;
 }
 

@@ -8,11 +8,13 @@ import org.dbc.admin.utils.CryptAESUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +30,17 @@ public class UserServiceTest {
     @Resource
     AccountDao accountDao;
     Gson gson = new Gson();
+    @Autowired
+    Environment env;
+
+    @Value("${spring.datasource.url}")
+    private String dbUrl;
+    @Value("${spring.datasource.username}")
+    private String dbUsername;
+    @Value("${spring.datasource.password}")
+    private String dbPassword;
+    @Value("${spring.datasource.driverclassname}")
+    private String dbClassName;
 
     @Test
     public void findUserByMongoTest() throws Exception{
@@ -46,7 +59,8 @@ public class UserServiceTest {
 
     @Test
     public void findUserAccountByMysqlTest() throws Exception {
-        List<Account> accounts = accountDao.selectByAccounts();
-        System.out.println("------------>" + accounts);
+//        List<Account> accounts = accountDao.selectByAccounts();
+//        System.out.println("\n\n------------>" + accounts);
+        System.out.println("\n\n\n\n\n\n------------>" + Arrays.toString(env.getActiveProfiles()));
     }
 }

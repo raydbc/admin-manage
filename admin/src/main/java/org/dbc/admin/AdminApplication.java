@@ -1,21 +1,19 @@
 package org.dbc.admin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.dbc.admin.utils.BaseUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dbc.admin.secure.config.PropertiesConfig;
-import org.dbc.admin.utils.BaseUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
@@ -27,7 +25,6 @@ import java.text.MessageFormat;
 @EnableTransactionManagement
 @EnableMongoAuditing
 @ComponentScan
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @EnableConfigurationProperties({PropertiesConfig.class})
 @SpringBootApplication
 public class AdminApplication {
@@ -35,10 +32,9 @@ public class AdminApplication {
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication app = new SpringApplication(AdminApplication.class);
-//		SpringApplication.run(AdminApplication.class, args);
 		logger.info("SpringBoot server stated on port: 8035");
 		Environment env = app.run(args).getEnvironment();
-		printServerInfo(env);
+//		printServerInfo(env);
 	}
 
 	public static void printServerInfo(Environment env) throws UnknownHostException {
